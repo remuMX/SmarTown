@@ -10,6 +10,7 @@ app.config['MONGO_URI'] = 'mongodb://localhost:27017/SmarTown'
 
 mongo = PyMongo(app)
 
+# <editor-fold desc="Usuarios">
 
 @app.route("/usuarios", methods=['GET'])
 def get_all_usuarios():
@@ -30,7 +31,7 @@ def get_all_usuarios():
     return jsonify(output)
 
 @app.route("/usuarios", methods=['POST'])
-def post_usuario():
+def add_usuario():
     usuarios = mongo.db.Usuarios
     usuario_nuevo = ({
     "nombre_completo": request.json['nombre_completo'],
@@ -64,6 +65,29 @@ def post_usuario():
     }
 
     return jsonify({'result': usuario_creado})
+
+# </editor-fold>
+
+# <editor-fold desc="Lugares">
+
+
+@app.route("/lugares", methods=['POST'])
+def add_lugar():
+    Lugares = mongo.db.Lugares
+    Lugar_nuevo = ({
+        "nombre": request.json['nombre'],
+        "categoria": request.json['anio_nacimiento'],
+        "correo": request.json['correo'],
+        "pais": request.json['pais'],
+        "estado": request.json['estado'],
+        "municipio": request.json['municipio'],
+        "tags": request.json['tags'],
+        "estado_civil": request.json['estado_civil'],
+        "pareja": request.json['pareja'],
+        "tipo_usuario": request.json['tipo_usuario']
+    })
+
+# </editor-fold>
 
 
 if __name__ == '__main__':
