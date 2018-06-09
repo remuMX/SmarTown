@@ -7,3 +7,9 @@ def add(object):
     except:
         return False
 
+
+def get():
+    try:
+        return Data.getall('Usuarios')
+    except:
+        return None

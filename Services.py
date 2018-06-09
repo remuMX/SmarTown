@@ -1,12 +1,21 @@
-from flask import Flask
+from flask import Flask, jsonify
 import Usuarios
+
 
 app = Flask(__name__)
 
 
-@app.route("/add", method)
-def AddUsuario(object):
-    return Usuarios.add(object)
+@app.route('/')
+def index():
+    return "Hello, World!"
+
+
+@app.route('/usuarios/get')
+def GetUsuarios():
+    return jsonify(Usuarios.get())
+
+
+
 
 
 if __name__ == '__main__':
