@@ -73,19 +73,71 @@ def add_usuario():
 
 @app.route("/lugares", methods=['POST'])
 def add_lugar():
-    Lugares = mongo.db.Lugares
-    Lugar_nuevo = ({
+    lugares = mongo.db.Lugares
+    lugar_nuevo = ({
         "nombre": request.json['nombre'],
-        "categoria": request.json['anio_nacimiento'],
-        "correo": request.json['correo'],
-        "pais": request.json['pais'],
+        "ubicacion": request.json['ubicacion'],
+        "categoria": request.json['categoria'],
+        "tags": request.json['pais'],
         "estado": request.json['estado'],
         "municipio": request.json['municipio'],
-        "tags": request.json['tags'],
-        "estado_civil": request.json['estado_civil'],
-        "pareja": request.json['pareja'],
-        "tipo_usuario": request.json['tipo_usuario']
+        "pais": request.json['estado_civil'],
+        "calificacion": request.json['pareja'],
+        "opioniones":[]
     })
+
+    lugar_id = lugares.insert(lugar_nuevo)
+
+    lugar_creado = lugares.find_one({"_id": lugar_id})
+
+    lugar_creado ={
+        "nombre": lugar_creado['nombre'],
+        "ubicacion": lugar_creado['ubicacion'],
+        "categoria": lugar_creado['categoria'],
+        "tags": lugar_creado['pais'],
+        "estado": lugar_creado['estado'],
+        "municipio": lugar_creado['municipio'],
+        "pais":lugar_creado['estado_civil'],
+        "calificacion": lugar_creado['pareja'],
+        "opioniones": lugar_creado['opiniones']
+    }
+
+    return jsonify({'result':lugar_creado})
+
+@app.route("/lugares", methods=['POST'])
+def get_near_by_tags():
+    lugares = mongo.db.Lugares
+    lugar_nuevo = ({
+        "nombre": request.json['nombre'],
+        "ubicacion": request.json['ubicacion'],
+        "categoria": request.json['categoria'],
+        "tags": request.json['pais'],
+        "estado": request.json['estado'],
+        "municipio": request.json['municipio'],
+        "pais": request.json['estado_civil'],
+        "calificacion": request.json['pareja'],
+        "opioniones": []
+    })
+
+    lugar_id = lugares.insert(lugar_nuevo)
+
+    lugar_creado = lugares.find_one({"_id": lugar_id})
+
+    lugar_creado = {
+        "nombre": lugar_creado['nombre'],
+        "ubicacion": lugar_creado['ubicacion'],
+        "categoria": lugar_creado['categoria'],
+        "tags": lugar_creado['pais'],
+        "estado": lugar_creado['estado'],
+        "municipio": lugar_creado['municipio'],
+        "pais": lugar_creado['estado_civil'],
+        "calificacion": lugar_creado['pareja'],
+        "opioniones": lugar_creado['opiniones']
+    }
+
+    return jsonify({'result': lugar_creado})
+
+
 
 # </editor-fold>
 
